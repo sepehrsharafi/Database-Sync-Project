@@ -1,16 +1,6 @@
-import pg from "pg";
-const { Client } = pg;
+import "dotenv/config";
+import { query } from "./database/postgres-handler.js";
 
-const client = new Client({
-  user: "database-user",
-  password: "secretpassword!!",
-  host: "my.database-server.com",
-  port: 5334,
-  database: "database-name",
-});
+const res = await query("SELECT * FROM public.products");
 
-await client.connect();
-
-const res = await client.query("SELECT * FROM public.products");
 console.log(res.rows);
-await client.end();
